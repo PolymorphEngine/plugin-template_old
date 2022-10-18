@@ -31,3 +31,9 @@ IPlugin.hpp
 *.exe
 *.out
 *.app
+
+
+.idea
+cmake-build-debug
+build
+build-debug

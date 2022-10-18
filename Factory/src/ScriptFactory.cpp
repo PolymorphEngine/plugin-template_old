@@ -12,3 +12,8 @@ Polymorph::Initializer Polymorph::ScriptFactory::create(std::string &type, Confi
     return _buildables.at(type)(data, entity);
 }
 
+bool Polymorph::ScriptFactory::hasType(std::string &type)
+{
+    return _buildables.contains(type);
+}
+

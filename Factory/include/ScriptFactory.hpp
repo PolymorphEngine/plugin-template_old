@@ -13,29 +13,9 @@
 
 //@Initalizers
 //${INITIALIZERS_INCLUDES}
-#include "GameManagerInitializer.hpp"
-#include "ScoreUpdaterInitializer.hpp"
-#include "ClientNetworkManagerInitializer.hpp"
-#include "MobNMInitializer.hpp"
-#include "PlayerAnimatorInitializer.hpp"
-#include "PlayerManagerInitializer.hpp"
-#include "PlayerMoverIMInitializer.hpp"
-#include "PlayerMoverNMInitializer.hpp"
-#include "PlayerShooterIMInitializer.hpp"
-#include "ProjectileNMInitializer.hpp"
 
 //@Scripts
 //${SCRIPTS_INCLUDES}
-#include "GameManagerScript.hpp"
-#include "ScoreUpdaterScript.hpp"
-#include "GameManager/ClientNetworkManagerScript.hpp"
-#include "Mobs/MobNMScript.hpp"
-#include "Player/PlayerAnimatorScript.hpp"
-#include "Player/PlayerManagerScript.hpp"
-#include "Player/PlayerMoverIMScript.hpp"
-#include "Player/PlayerMoverNMScript.hpp"
-#include "Player/PlayerShooterIMScript.hpp"
-#include "Projectiles/ProjectileNMScript.hpp"
 
 namespace Polymorph
 {
@@ -69,6 +49,8 @@ namespace Polymorph
         public:
             Initializer create(std::string &type, Config::XmlComponent &data,
                                GameObject entity) override;
+            
+            bool hasType(std::string &type) final;
 //////////////////////--------------------------/////////////////////////
 
     };

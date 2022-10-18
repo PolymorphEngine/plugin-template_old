@@ -1,8 +1,10 @@
 <Plugin name="polymorph.test-plugin">
     <Templates>
-    
+        <Template type="SimpleEnemyColliderHandler" path="Mob/SimpleEnemy/SimpleEnemyColliderHandler.pcf.cpt" />
+
     </Templates>
     <Prefabs>
-        
+        <Prefab name="Player" path="Player/Player-2b5f3bbef3.pcf.prefab" id="2b5f3bbef3" />
+
     </Prefabs>
 </Plugin>
