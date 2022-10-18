@@ -1,0 +1,8 @@
+<Plugin name="plugin-template">
+    <Templates>
+        <Template type="ComponentName" path="Component/config/filepath.pcf.cpt" />
+    </Templates>
+    <Prefabs>
+        <Prefab name="PrefabName" path="Prefab/config/filepath.pcf.prefab" id="Prefab-id" />
+    </Prefabs>
+</Plugin>

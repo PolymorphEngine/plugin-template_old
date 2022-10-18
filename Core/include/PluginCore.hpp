@@ -3,6 +3,7 @@
 #include <vector>
 #include <Polymorph/Core.hpp>
 #include <Polymorph/Config.hpp>
+#include <Polymorph/Plugins.hpp>
 
 namespace Polymorph
 {
@@ -11,12 +12,13 @@ namespace Polymorph
 
         public:
             using XmlNode = myxmlpp::Node;
-            PluginCore(XmlNode &data, Engine &game);
+            PluginCore(XmlNode &data, Engine &game, std::string PluginsPath);
             ~PluginCore() = default;
 
 
         private:
             std::string _packageName;
+            std::string _pluginsPath;
             XmlNode _data;
             std::vector<std::shared_ptr<Config::XmlEntity>> _prefabs;
             std::vector<std::shared_ptr<Config::XmlComponent>> _templates;
@@ -24,24 +26,24 @@ namespace Polymorph
             Engine &_game;
 
         public:
-            virtual std::string getPackageName() final;
+            std::string getPackageName() final;
 
-            virtual std::shared_ptr<IComponentInitializer> createComponent(std::string &type,
+            std::shared_ptr<IComponentInitializer> createComponent(std::string &type,
             Config::XmlComponent &data, GameObject entity) final;
             
-            virtual bool hasComponent(std::string &type) final;
+            bool hasComponent(std::string &type) final;
 
-            virtual bool hasPrefab(std::string &id) final;
+            bool hasPrefab(std::string &id) final;
 
-            virtual std::shared_ptr<Config::XmlEntity> &getPrefabConf(std::string &id) final;
+            std::shared_ptr<Config::XmlEntity> &getPrefabConf(std::string &id) final;
 
-            virtual std::vector<std::shared_ptr<Config::XmlComponent>> &getComponentTemplates() final;
+            std::vector<std::shared_ptr<Config::XmlComponent>> &getComponentTemplates() final;
 
-            virtual void preUpdateInternalSystems(std::shared_ptr<Scene> &scene) final;
+            void preUpdateInternalSystems(std::shared_ptr<Scene> &scene) final;
 
-            virtual void updateInternalSystems(std::shared_ptr<Scene> &scene) final;
+            void updateInternalSystems(std::shared_ptr<Scene> &scene) final;
 
-            virtual void postUpdateInternalSystems(std::shared_ptr<Scene> &scene) final;
+            void postUpdateInternalSystems(std::shared_ptr<Scene> &scene) final;
             
         private:
             void _loadPrefabs();

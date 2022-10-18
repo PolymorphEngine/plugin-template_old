@@ -1,4 +1,7 @@
 #include "PluginCore.hpp"
+
+#include <utility>
+#include <typeindex>
 #include "Polymorph/Debug.hpp"
 #include "ScriptFactory.hpp"
 
@@ -9,7 +12,7 @@ namespace Polymorph
         return _packageName;
     }
 
-    PluginCore::PluginCore(PluginCore::XmlNode &data, Engine &game) : _data(data), _game(game)
+    PluginCore::PluginCore(PluginCore::XmlNode &data, Engine &game, std::string PluginsPath) : _data(data), _game(game), _pluginsPath(std::move(PluginsPath))
     {
         try {
             _packageName = _data.findAttribute("name")->getValue();
@@ -19,11 +22,12 @@ namespace Polymorph
         _factory = std::make_unique<ScriptFactory>();
         _loadTemplates();
         _loadPrefabs();
+        
     }
 
     std::shared_ptr<IComponentInitializer>
     PluginCore::createComponent(std::string &type, Config::XmlComponent &data,
-                                GameObject entity)
+    GameObject entity)
     {
         return _factory->create(type, data, entity);
     }
@@ -60,11 +64,7 @@ namespace Polymorph
         auto prefabs = _data.findChild("Prefabs");
 
         for (auto &t: *prefabs) {
-
-            //TODO: determine directory where will be the plugin to set the work dir for configuration !!!!!!!!!!!!!
-            //TODO: idea 1: the engine sends the plugin path from the global workdir ?
-            _prefabs.emplace_back(std::make_shared<Config::XmlEntity>(t, _game, "" + _packageName));
-            //TODO: VOUERY IMPOERTENTE
+            _prefabs.emplace_back(std::make_shared<Config::XmlEntity>(t, _game, _pluginsPath +"/"+ _packageName));
         }
             
     }
@@ -91,5 +91,15 @@ namespace Polymorph
             return p->getId() == id;
         });
         return *r;
+    }
+
+}
+
+extern "C"
+{
+    EXPORT_MODULE Polymorph::IPlugin *loadPlugin(Polymorph::Config::XmlNode &data,
+    Polymorph::Engine &game, std::string PluginsPath)
+    {
+        return new Polymorph::PluginCore(data, game, std::move(PluginsPath));
     }
 }
