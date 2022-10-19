@@ -1,4 +1,4 @@
-<Plugin name="plugin-template">
+<Plugin name="plugin-template" enabled="true">
     <Templates>
         <Template type="ComponentName" path="Component/config/filepath.pcf.cpt" />
     </Templates>

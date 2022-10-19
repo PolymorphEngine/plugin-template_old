@@ -7,8 +7,7 @@
 
 #pragma once
 
-#include "Polymorph/Factory.hpp"
-#include "Polymorph/Components.hpp"
+#include "ScriptingAPI/ScriptingApi.hpp"
 #include "Polymorph/Core.hpp"
 
 //@Initalizers

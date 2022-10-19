@@ -16,13 +16,15 @@ namespace Polymorph
     {
         try {
             _packageName = _data.findAttribute("name")->getValue();
+            _isEnabled = _data.findAttribute("enabled")->getValueBool();
         } catch (myxmlpp::AttributeNotFoundException &e) {
             throw ExceptionLogger("Plugin: Plugin corrupted, no name attribute found");
         }
         _factory = std::make_unique<ScriptFactory>();
+        if (!_isEnabled)
+            return;
         _loadTemplates();
         _loadPrefabs();
-        
     }
 
     std::shared_ptr<IComponentInitializer>
@@ -38,7 +40,7 @@ namespace Polymorph
     }
 
 
-    std::vector<std::shared_ptr<Config::XmlComponent>> &
+    std::vector<Config::XmlComponent> &
     PluginCore::getComponentTemplates()
     {
         return _templates;
@@ -51,7 +53,7 @@ namespace Polymorph
 
     void PluginCore::updateInternalSystems(std::shared_ptr<Scene> &scene)
     {
-
+        
     }
 
     void PluginCore::postUpdateInternalSystems(std::shared_ptr<Scene> &scene)
@@ -74,23 +76,39 @@ namespace Polymorph
         auto templates = _data.findChild("Templates");
         
         for (auto &t: *templates)
-            _templates.emplace_back(std::make_shared<Config::XmlComponent>(t));
+            _templates.emplace_back(t);
 
     }
 
-    bool PluginCore::hasPrefab(std::string &id)
+    bool PluginCore::hasPrefab(const std::string &id)
     {
         return std::find_if(_prefabs.begin(), _prefabs.end(), [&id](auto &p) {
             return p->getId() == id;
         }) != _prefabs.end();
     }
 
-    std::shared_ptr<Config::XmlEntity> &PluginCore::getPrefabConf(std::string &id)
+    std::shared_ptr<Config::XmlEntity> &PluginCore::getPrefabConf(
+            const std::string &id)
     {
         auto r = std::find_if(_prefabs.begin(), _prefabs.end(), [&id](auto &p) {
             return p->getId() == id;
         });
         return *r;
+    }
+
+    bool PluginCore::isEnabled()
+    {
+        return _isEnabled;
+    }
+
+    void PluginCore::startScripts(std::shared_ptr<Scene> &scene)
+    {
+
+    }
+
+    void PluginCore::endScripts(std::shared_ptr<Scene> &scene)
+    {
+
     }
 
 }
