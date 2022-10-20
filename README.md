@@ -27,7 +27,15 @@ This is a template for creating a new plugin for the [Polymorph Engine](https://
 - Also to create manually the script `Initailizer` in the `Factory/include/intializers/` directory
 
 ## Symbols
+- In case you are developing a plugin that implements other plugins `Interfaces`
+- Make sure to add a dev dependency to the `CMakelists.txt` file with a fetch content
+- Also include the `Interfaces and the Symbols definitions`
+- Then you just have to make a definition for those
+- That's it !
 
 ## Modules (Serializable classes)
+- Belong in the `Core` directory
 
 ## Internal Plugin updates
+- Belong in the `Core` directory
+- In the class `PluginCore`

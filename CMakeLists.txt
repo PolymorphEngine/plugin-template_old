@@ -1,9 +1,13 @@
 cmake_minimum_required(VERSION 3.20)
-project(plugin-template)
-
 set(CMAKE_CXX_STANDARD 23)
 set(EXECUTABLE_OUTPUT_PATH ../)
 set(LIBRARY_OUTPUT_PATH  ../)
+
+
+
+project(plugin-template)
+set(NAMESPACE Polymorph)
+
 
 #set(CMAKE_MODULE /usr/bin/clang)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory")
@@ -25,6 +29,11 @@ if(NOT TARGET PolymorphEngine)
     FetchContent_MakeAvailable(PolymorphEngine)
 endif()
 
+
+if (NOT EXISTS "../${PROJECT_NAME}.pcf.plugin")
+    file(RENAME plugin-template.pcf.plugin ${PROJECT_NAME}.pcf.plugin)
+    file(RENAME IncludeExport/Polymorph/plugin-template.hpp IncludeExport/${NAMESPACE}/${PROJECT_NAME}.hpp)
+endif()
 
 
 file(GLOB_RECURSE SCRIPTS_SRC Scripts/src/*.cpp)
