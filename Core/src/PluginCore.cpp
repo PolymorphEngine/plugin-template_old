@@ -20,6 +20,7 @@ namespace Polymorph
         } catch (myxmlpp::AttributeNotFoundException &e) {
             throw ExceptionLogger("Plugin: Plugin corrupted, no name attribute found");
         }
+        PluginManager = game.getPluginManager();
         _factory = std::make_unique<ScriptFactory>();
         if (!_isEnabled)
             return;

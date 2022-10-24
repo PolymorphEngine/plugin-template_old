@@ -17,6 +17,9 @@ namespace Polymorph
             PluginCore(XmlNode &data, Engine &game, std::string PluginsPath);
             ~PluginCore() = default;
 
+            
+        public:
+            static inline std::shared_ptr<PluginManager> PluginManager = nullptr;
 
         private:
             std::string _packageName;
