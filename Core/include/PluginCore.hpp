@@ -29,13 +29,13 @@ namespace Polymorph
             Engine &_game;
             
         public:
-            /*
+            /**
              * @brief Get the package name
              * @return The package name as a string
              */
             std::string getPackageName() final;
 
-            /*
+            /**
              * @brief Create a component from the plugin
              * @param type The type of the component to create (as a string)
              * @param data The data of the component to create (as a XmlComponent)
@@ -46,20 +46,20 @@ namespace Polymorph
             Config::XmlComponent &data, GameObject entity) final;
             
             
-            /*
+            /**
              * @brief Check if the plugin is enabled
              * @return True if the plugin is enabled, false otherwise
              */
             bool isEnabled() override;
             
-            /*
+            /**
              * @brief Check if the plugin has a component of the given type
              * @param type The type of the component to check
              * @return True if the plugin has a component of the given type, false otherwise
              */
             bool hasComponent(std::string &type) final;
 
-            /*
+            /**
              * @brief Check if the plugin has a prefab of the given id
              * @param id The id of the prefab to check
              * @return True if the plugin has a prefab of the given id, false otherwise
@@ -67,7 +67,7 @@ namespace Polymorph
             bool hasPrefab(const std::string &id) final;
 
 
-            /*
+            /**
              * @brief Get the prefab configuration
              * @param id The id of the prefab
              * @return A shared pointer to the prefab configuration

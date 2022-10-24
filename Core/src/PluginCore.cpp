@@ -115,7 +115,7 @@ namespace Polymorph
 
 extern "C"
 {
-    EXPORT_MODULE Polymorph::IPlugin *loadPlugin(Polymorph::Config::XmlNode &data,
+    EXPORT_MODULE Polymorph::IPlugin *createPlugin(Polymorph::Config::XmlNode &data,
     Polymorph::Engine &game, std::string PluginsPath)
     {
         return new Polymorph::PluginCore(data, game, std::move(PluginsPath));
