@@ -19,7 +19,7 @@ namespace Polymorph
 
             
         public:
-            static inline std::shared_ptr<PluginManager> PluginManager = nullptr;
+            static inline std::shared_ptr<PluginManager> pluginManager = nullptr;
 
         private:
             std::string _packageName;
