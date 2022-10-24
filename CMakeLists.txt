@@ -44,8 +44,9 @@ file(GLOB_RECURSE FACTORY_ICL Factory/include/*.hpp)
 
 file(GLOB_RECURSE CORE_SRC Core/src/*.cpp)
 file(GLOB_RECURSE CORE_ICL Core/include/*.hpp)
+file(GLOB_RECURSE EXPORTS IncludeExport/*.hpp)
 
-add_library(${PROJECT_NAME} SHARED ${SCRIPTS_SRC} ${SCRIPTS_ICL} ${FACTORY_SRC} ${FACTORY_ICL} ${CORE_SRC} ${CORE_ICL})
+add_library(${PROJECT_NAME} SHARED ${SCRIPTS_SRC} ${SCRIPTS_ICL} ${FACTORY_SRC} ${FACTORY_ICL} ${CORE_SRC} ${CORE_ICL} ${EXPORTS})
 SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES PREFIX "")
 target_include_directories(${PROJECT_NAME} PUBLIC
         Scripts/include
