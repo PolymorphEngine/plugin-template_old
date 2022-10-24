@@ -31,8 +31,8 @@ endif()
 
 
 if (NOT EXISTS "../${PROJECT_NAME}.pcf.plugin")
-    file(RENAME plugin-template.pcf.plugin ${PROJECT_NAME}.pcf.plugin)
-    file(RENAME IncludeExport/Polymorph/plugin-template.hpp IncludeExport/${NAMESPACE}/${PROJECT_NAME}.hpp)
+    file(RENAME plugin-template.pcf.plugin ${PROJECT_NAME}.pcf.plugin RESULT 0)
+    file(RENAME IncludeExport/Polymorph/plugin-template.hpp IncludeExport/${NAMESPACE}/${PROJECT_NAME}.hpp RESULT 0)
 endif()
 
 
