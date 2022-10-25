@@ -40,7 +40,7 @@ namespace Polymorph
                 return [](Config::XmlComponent &data, GameObject entity) -> Initializer{ return Initializer(new T(data, entity));};
             }
 
-            static inline std::map<std::string, FactoryLambda> _buildables = {
+            const std::map<const std::string, FactoryLambda> _buildables = {
                     //${BUILDERS}
             };
 //////////////////////--------------------------/////////////////////////
