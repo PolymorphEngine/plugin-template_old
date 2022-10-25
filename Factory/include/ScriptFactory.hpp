@@ -31,18 +31,18 @@ namespace Polymorph
 //Builder template : SCRIPT(${SCRIPT_NAME})
 ///////////////////////////// PROPERTIES ////////////////////////////////
         private:
+            using Initializer = std::shared_ptr<IComponentInitializer>;
+            using GameObject = Polymorph::safe_ptr<Polymorph::Entity>;
             using FactoryLambda = std::function<Initializer (Config::XmlComponent &data, GameObject entity)>;
             template<typename T>
             static inline FactoryLambda _make()
             {
                 return [](Config::XmlComponent &data, GameObject entity) -> Initializer{ return Initializer(new T(data, entity));};
             }
-            
-            const std::map<const std::string, FactoryLambda>
-                _buildables =
-                {
+
+            static inline std::map<std::string, FactoryLambda> _buildables = {
                     //${BUILDERS}
-                };
+            };
 //////////////////////--------------------------/////////////////////////
 
 
