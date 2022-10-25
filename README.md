@@ -7,7 +7,7 @@ This is a template for creating a new plugin for the [Polymorph Engine](https://
 1. FORK this repository and set its `NAME` to the new plugin name (e.g. `pluginname-type`).
 2. Set the CMake project name in `CMakeLists.txt` to the new plugin name (e.g. `pluginname-type`).
 3. Change the `plugin-template.pcf.cpt` to the new plugin name (e.g. `pluginname-type.pcf.plugin`).
-4. Make sure tu change the `name=plugin-template` attribute too.
+4. Make sure to change the `name=plugin-template` attribute too.
 5. To be used, you also have to create `NAMESPACE` directory in `IncludeExport`
 6. Inside it try to have at least an include file named by your plugin name (e.g. `IncludeExport/NAMESPACE/pluginname-type.hpp`).
 
