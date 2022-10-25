@@ -14,6 +14,9 @@ namespace Polymorph
 
     PluginCore::PluginCore(PluginCore::XmlNode &data, Engine &game, std::string PluginsPath) : _data(data), _game(game), _pluginsPath(std::move(PluginsPath))
     {
+        Logger::setLogDir("./Game/Assets/Logs");
+        Logger::initLogInstance((_game.isDebugMode() ? Logger::DEBUG_MODE : Logger::RELEASE_MODE));
+        Logger::setLogInstanceName(_packageName);
         try {
             _packageName = _data.findAttribute("name")->getValue();
             _isEnabled = _data.findAttribute("enabled")->getValueBool();
