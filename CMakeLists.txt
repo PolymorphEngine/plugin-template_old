@@ -46,6 +46,8 @@ file(GLOB_RECURSE CORE_SRC Core/src/*.cpp)
 file(GLOB_RECURSE CORE_ICL Core/include/*.hpp)
 file(GLOB_RECURSE EXPORTS IncludeExport/*.hpp)
 
+set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS ON)
+
 add_library(${PROJECT_NAME} SHARED ${SCRIPTS_SRC} ${SCRIPTS_ICL} ${FACTORY_SRC} ${FACTORY_ICL} ${CORE_SRC} ${CORE_ICL} ${EXPORTS})
 SET_TARGET_PROPERTIES(${PROJECT_NAME} PROPERTIES PREFIX "")
 target_include_directories(${PROJECT_NAME} PUBLIC
@@ -58,6 +60,12 @@ target_include_directories(${PROJECT_NAME} PUBLIC
 target_link_libraries(${PROJECT_NAME} PolymorphEngine)
 set_target_properties(PolymorphEngine PROPERTIES EXCLUDE_FROM_ALL True POSITION_INDEPENDENT_CODE ON)
 
+if(WIN32)
+    # MSVC
+    target_compile_options(${PROJECT_NAME} PRIVATE /EHsc /W2 /c)
+    # Set the DLLEXPORT variable to export symbols
+    target_compile_definitions(${PROJECT_NAME} PRIVATE WIN_EXPORT)
+endif()
 
 
 if (NOT "${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
