@@ -20,10 +20,11 @@ namespace Polymorph
             
         public:
             static inline std::shared_ptr<PluginManager> pluginManager = nullptr;
+            static inline std::shared_ptr<AssetManager> assetManager = nullptr;
 
         private:
             std::string _packageName;
-            bool _isEnabled;
+            bool _isEnabled = true;
             std::string _pluginsPath;
             XmlNode _data;
             std::vector<std::shared_ptr<Config::XmlEntity>> _prefabs;
@@ -98,6 +99,7 @@ namespace Polymorph
         private:
             void _loadPrefabs();
             void _loadTemplates();
+            void _initializePlugin();
 
     };
 }

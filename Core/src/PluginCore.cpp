@@ -1,9 +1,8 @@
 #include "PluginCore.hpp"
 
 #include <utility>
-#include <typeindex>
 #include "Polymorph/Debug.hpp"
-#include "ScriptFactory.hpp"
+#include "../../Factory/include/ScriptFactory.hpp"
 
 namespace Polymorph 
 {
@@ -14,21 +13,7 @@ namespace Polymorph
 
     PluginCore::PluginCore(PluginCore::XmlNode &data, Engine &game, std::string PluginsPath) : _data(data), _game(game), _pluginsPath(std::move(PluginsPath))
     {
-        Logger::setLogDir("./Game/Assets/Logs");
-        Logger::initLogInstance((_game.isDebugMode() ? Logger::DEBUG_MODE : Logger::RELEASE_MODE));
-        Logger::setLogInstanceName(_packageName);
-        try {
-            _packageName = _data.findAttribute("name")->getValue();
-            _isEnabled = _data.findAttribute("enabled")->getValueBool();
-        } catch (myxmlpp::AttributeNotFoundException &e) {
-            throw ExceptionLogger("Plugin: Plugin corrupted, no name attribute found");
-        }
-        pluginManager = game.getPluginManager();
-        _factory = std::make_unique<ScriptFactory>();
-        if (!_isEnabled)
-            return;
-        _loadTemplates();
-        _loadPrefabs();
+        _initializePlugin();
     }
 
     std::shared_ptr<IComponentInitializer>
@@ -113,6 +98,26 @@ namespace Polymorph
     void PluginCore::endScripts(std::shared_ptr<Scene> &scene)
     {
 
+    }
+
+    void PluginCore::_initializePlugin()
+    {
+        Logger::setLogDir("./Game/Assets/Logs");
+        Logger::initLogInstance((_game.isDebugMode() ? Logger::DEBUG_MODE : Logger::RELEASE_MODE));
+        Logger::setLogInstanceName(_packageName);
+        try {
+            _packageName = _data.findAttribute("name")->getValue();
+            _isEnabled = _data.findAttribute("enabled")->getValueBool();
+        } catch (myxmlpp::AttributeNotFoundException &e) {
+            throw ExceptionLogger("Plugin: Plugin corrupted, no name attribute found");
+        }
+        this->pluginManager = _game.getPluginManager();
+        this->assetManager = _game.getAssetManager();
+        _factory = std::make_unique<ScriptFactory>();
+        if (!_isEnabled)
+            return;
+        _loadTemplates();
+        _loadPrefabs();
     }
 
 }

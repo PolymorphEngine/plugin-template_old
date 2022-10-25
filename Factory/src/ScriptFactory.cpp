@@ -4,7 +4,7 @@
 ** File description:
 ** ScriptFactory.cpp
 */
-#include "ScriptFactory.hpp"
+#include "../include/ScriptFactory.hpp"
 
 Polymorph::Initializer Polymorph::ScriptFactory::create(std::string &type, Config::XmlComponent &data,
                                  GameObject entity)
