@@ -1,13 +1,15 @@
 cmake_minimum_required(VERSION 3.20)
 set(CMAKE_CXX_STANDARD 23)
 set(EXECUTABLE_OUTPUT_PATH ../)
-set(LIBRARY_OUTPUT_PATH  ../)
-
-
 
 project(plugin-template)
 set(NAMESPACE Polymorph)
 
+if (${CMAKE_SOURCE_DIR} EQUAL ${PROJECT_NAME})
+    set(LIBRARY_OUTPUT_PATH  ../)
+else()
+    set(LIBRARY_OUTPUT_PATH  ${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME})
+endif()
 
 #set(CMAKE_MODULE /usr/bin/clang)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fsanitize=memory")
@@ -30,10 +32,7 @@ if(NOT TARGET PolymorphEngine)
 endif()
 
 
-if (NOT EXISTS "../${PROJECT_NAME}.pcf.plugin")
-    file(RENAME plugin-template.pcf.plugin ${PROJECT_NAME}.pcf.plugin RESULT 0)
-    file(RENAME IncludeExport/Polymorph/plugin-template.hpp IncludeExport/${NAMESPACE}/${PROJECT_NAME}.hpp RESULT 0)
-endif()
+
 
 
 
@@ -60,14 +59,24 @@ target_link_libraries(${PROJECT_NAME} PolymorphEngine)
 set_target_properties(PolymorphEngine PROPERTIES EXCLUDE_FROM_ALL True POSITION_INDEPENDENT_CODE ON)
 
 
+
 if (NOT "${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
-    if (NOT EXISTS "${CMAKE_CURRENT_LIST_DIR}/Plugins/")
+    if (NOT EXISTS "${CMAKE_SOURCE_DIR}/Plugins/")
         file(MAKE_DIRECTORY "${CMAKE_SOURCE_DIR}/Plugins/")
     endif()
-
-    if (NOT EXISTS "${CMAKE_CURRENT_LIST_DIR}/Plugins/${PROJECT_NAME}")
+    if (NOT EXISTS "${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME}")
+        file(MAKE_DIRECTORY "${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME}/")
+    elseif (EXISTS "${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME}")
+        file(REMOVE_RECURSE "${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME}/")
         file(MAKE_DIRECTORY "${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME}/")
     endif()
-
-    file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/"  "${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME}/")
+    if (NOT EXISTS "${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME}/Assets")
+        file(MAKE_DIRECTORY "${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME}/Assets")
+    endif()
+    file(COPY "${CMAKE_CURRENT_SOURCE_DIR}/Assets" DESTINATION "${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME}/Assets")
+    file(COPY_FILE "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.pcf.plugin" "${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME}/${PROJECT_NAME}.pcf.plugin")
+    file(COPY_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md" "${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME}/README.md")
+elseif(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.pcf.plugin")
+    file(RENAME plugin-template.pcf.plugin ${PROJECT_NAME}.pcf.plugin RESULT 0)
+    file(RENAME IncludeExport/Polymorph/plugin-template.hpp IncludeExport/${NAMESPACE}/${PROJECT_NAME}.hpp RESULT 0)
 endif()
