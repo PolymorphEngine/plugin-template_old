@@ -28,17 +28,20 @@ namespace Polymorph
 
 //////////////////////--------------------------/////////////////////////
 
-//Builder template : {"${SCRIPT_NAME}", [](Config::XmlComponent &data, GameObject entity) -> Initializer{ return Initializer(new ${SCRIPT_NAME}Initializer(data, entity));}},
-
+//Builder template : SCRIPT(${SCRIPT_NAME})
 ///////////////////////////// PROPERTIES ////////////////////////////////
         private:
             using FactoryLambda = std::function<Initializer (Config::XmlComponent &data, GameObject entity)>;
-            using F = auto (Config::XmlComponent &data, GameObject entity) -> Initializer;
-            static const inline std::map<std::string, FactoryLambda>
+            template<typename T>
+            static inline FactoryLambda _make()
+            {
+                return [](Config::XmlComponent &data, GameObject entity) -> Initializer{ return Initializer(new T(data, entity));};
+            }
+            
+            const std::map<const std::string, FactoryLambda>
                 _buildables =
                 {
                     //${BUILDERS}
-
                 };
 //////////////////////--------------------------/////////////////////////
 
