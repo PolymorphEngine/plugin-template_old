@@ -104,9 +104,9 @@ namespace Polymorph
     {
         Logger::setLogDir("./Game/Assets/Logs");
         Logger::initLogInstance((_game.isDebugMode() ? Logger::DEBUG_MODE : Logger::RELEASE_MODE));
-        Logger::setLogInstanceName(_packageName);
         try {
             _packageName = _data.findAttribute("name")->getValue();
+            Logger::setLogInstanceName(_packageName);
             _isEnabled = _data.findAttribute("enabled")->getValueBool();
         } catch (myxmlpp::AttributeNotFoundException &e) {
             throw ExceptionLogger("Plugin: Plugin corrupted, no name attribute found");
