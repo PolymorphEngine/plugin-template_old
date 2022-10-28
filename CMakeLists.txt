@@ -23,7 +23,7 @@ if(NOT TARGET PolymorphEngine)
     include(FetchContent)
     FetchContent_Declare(
             PolymorphEngine
-            GIT_REPOSITORY git@github.com:PolymorphEngine/engine.git
+            GIT_REPOSITORY https://github.com/PolymorphEngine/engine.git
             GIT_TAG feature/PluginManager
     )
     FetchContent_MakeAvailable(PolymorphEngine)
