@@ -3,7 +3,7 @@ set(CMAKE_CXX_STANDARD 23)
 set(EXECUTABLE_OUTPUT_PATH ../)
 
 project(plugin-template)
-set(NAMESPACE Polymorph)
+set(NAMESPACE polymorph)
 
 if (${CMAKE_SOURCE_DIR} EQUAL ${PROJECT_NAME})
     set(LIBRARY_OUTPUT_PATH  ../)
@@ -19,16 +19,16 @@ endif()
 
 
 
-if(NOT TARGET PolymorphEngine)
+if(NOT TARGET polymorphEngine)
     include(FetchContent)
 
     FetchContent_Declare(
-            PolymorphEngine
-            GIT_REPOSITORY git@github.com:PolymorphEngine/engine.git
+            polymorphEngine
+            GIT_REPOSITORY git@github.com:polymorphEngine/engine.git
             GIT_TAG feature/PluginManager
     )
 
-    FetchContent_MakeAvailable(PolymorphEngine)
+    FetchContent_MakeAvailable(polymorphEngine)
 endif()
 
 
@@ -57,8 +57,8 @@ target_include_directories(${PROJECT_NAME} PUBLIC
         IncludeExport
 )
 
-target_link_libraries(${PROJECT_NAME} PolymorphEngine)
-set_target_properties(PolymorphEngine PROPERTIES EXCLUDE_FROM_ALL True POSITION_INDEPENDENT_CODE ON)
+target_link_libraries(${PROJECT_NAME} polymorphEngine)
+set_target_properties(polymorphEngine PROPERTIES EXCLUDE_FROM_ALL True POSITION_INDEPENDENT_CODE ON)
 
 if(WIN32)
     # MSVC
@@ -83,5 +83,5 @@ if (NOT "${CMAKE_SOURCE_DIR}" STREQUAL "${CMAKE_CURRENT_SOURCE_DIR}")
     file(COPY_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md" "${CMAKE_SOURCE_DIR}/Plugins/${PROJECT_NAME}/README.md")
 elseif(NOT EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/${PROJECT_NAME}.pcf.plugin")
     file(RENAME plugin-template.pcf.plugin ${PROJECT_NAME}.pcf.plugin RESULT 0)
-    file(RENAME IncludeExport/Polymorph/plugin-template.hpp IncludeExport/${NAMESPACE}/${PROJECT_NAME}.hpp RESULT 0)
+    file(RENAME IncludeExport/polymorph/plugin-template.hpp IncludeExport/${NAMESPACE}/${PROJECT_NAME}.hpp RESULT 0)
 endif()

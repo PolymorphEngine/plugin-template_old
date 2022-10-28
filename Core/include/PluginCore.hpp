@@ -1,11 +1,11 @@
 #include <iostream>
 #include <memory>
 #include <vector>
-#include <Polymorph/Core.hpp>
-#include <Polymorph/Config.hpp>
-#include <Polymorph/Plugins.hpp>
+#include <polymorph/Core.hpp>
+#include <polymorph/Config.hpp>
+#include <polymorph/Plugins.hpp>
 
-namespace Polymorph
+namespace polymorph::engine
 {
     class PluginCore : public IPlugin
     {

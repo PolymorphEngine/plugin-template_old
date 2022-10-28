@@ -8,7 +8,7 @@
 #pragma once
 
 #include "ScriptingAPI/ScriptingApi.hpp"
-#include "Polymorph/Core.hpp"
+#include "polymorph/Core.hpp"
 
 //@Initalizers
 //${INITIALIZERS_INCLUDES}
@@ -16,7 +16,7 @@
 //@Scripts
 //${SCRIPTS_INCLUDES}
 
-namespace Polymorph
+namespace polymorph::engine
 {
     using Initializer = std::shared_ptr<IComponentInitializer>;
     class ScriptFactory : public IScriptFactory
@@ -32,7 +32,7 @@ namespace Polymorph
 //Builder template : SCRIPT(${SCRIPT_NAME})
 ///////////////////////////// PROPERTIES ////////////////////////////////
         private:
-            using GameObject = Polymorph::safe_ptr<Polymorph::Entity>;
+            using GameObject = polymorph::engine::safe_ptr<polymorph::engine::Entity>;
             using FactoryLambda = std::function<Initializer (Config::XmlComponent &data, GameObject entity)>;
             template<typename T>
             static inline FactoryLambda _make()

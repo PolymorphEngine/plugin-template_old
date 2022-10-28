@@ -1,10 +1,10 @@
 #include "PluginCore.hpp"
 
 #include <utility>
-#include "Polymorph/Debug.hpp"
+#include "polymorph/Debug.hpp"
 #include "../../Factory/include/ScriptFactory.hpp"
 
-namespace Polymorph 
+namespace polymorph::engine 
 {
     std::string PluginCore::getPackageName()
     {
@@ -102,11 +102,8 @@ namespace Polymorph
 
     void PluginCore::_initializePlugin()
     {
-        Logger::setLogDir("./Game/Assets/Logs");
-        Logger::initLogInstance((_game.isDebugMode() ? Logger::DEBUG_MODE : Logger::RELEASE_MODE));
         try {
             _packageName = _data.findAttribute("name")->getValue();
-            Logger::setLogInstanceName(_packageName);
             _isEnabled = _data.findAttribute("enabled")->getValueBool();
         } catch (myxmlpp::AttributeNotFoundException &e) {
             throw ExceptionLogger("Plugin: Plugin corrupted, no name attribute found");
@@ -119,14 +116,13 @@ namespace Polymorph
         _loadTemplates();
         _loadPrefabs();
     }
-
 }
 
 extern "C"
 {
-    EXPORT_MODULE Polymorph::IPlugin *createPlugin(Polymorph::Config::XmlNode &data,
-    Polymorph::Engine &game, std::string PluginsPath)
+    EXPORT_MODULE polymorph::engine::IPlugin *createPlugin(polymorph::engine::Config::XmlNode &data,
+    polymorph::engine::Engine &game, std::string PluginsPath)
     {
-        return new Polymorph::PluginCore(data, game, std::move(PluginsPath));
+        return new polymorph::engine::PluginCore(data, game, std::move(PluginsPath));
     }
 }
