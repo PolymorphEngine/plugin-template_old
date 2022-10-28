@@ -10,19 +10,22 @@ namespace polymorph::engine
     class PluginCore : public IPlugin
     {
         public:
-
-
-        public:
             using XmlNode = myxmlpp::Node;
             PluginCore(XmlNode &data, Engine &game, std::string PluginsPath);
             ~PluginCore() = default;
 
+        private:
+            PluginCore(const PluginCore &copy): _data(copy._data), _game(copy._game), _pluginsPath(copy._pluginsPath), assetManager(copy.assetManager), pluginManager(copy.pluginManager) {
+                
+            }
             
         public:
-            static inline std::shared_ptr<PluginManager> pluginManager = nullptr;
-            static inline std::shared_ptr<AssetManager> assetManager = nullptr;
+            static inline const PluginCore* Plugin = nullptr;
+            PluginManager &pluginManager;
+            AssetManager &assetManager;
 
         private:
+
             std::string _packageName;
             bool _isEnabled = true;
             std::string _pluginsPath;

@@ -3,6 +3,8 @@
 #include <utility>
 #include "polymorph/Debug.hpp"
 #include "../../Factory/include/ScriptFactory.hpp"
+#include "Plugins/AssetManager.hpp"
+#include "Plugins/PluginManager.hpp"
 
 namespace polymorph::engine 
 {
@@ -11,7 +13,8 @@ namespace polymorph::engine
         return _packageName;
     }
 
-    PluginCore::PluginCore(PluginCore::XmlNode &data, Engine &game, std::string PluginsPath) : _data(data), _game(game), _pluginsPath(std::move(PluginsPath))
+    PluginCore::PluginCore(PluginCore::XmlNode &data, Engine &game, std::string PluginsPath) 
+    : _data(data), _game(game), _pluginsPath(std::move(PluginsPath)), assetManager(game.getAssetManager()), pluginManager(game.getPluginManager())
     {
         _initializePlugin();
     }
@@ -102,14 +105,13 @@ namespace polymorph::engine
 
     void PluginCore::_initializePlugin()
     {
+        Plugin = this;
         try {
             _packageName = _data.findAttribute("name")->getValue();
             _isEnabled = _data.findAttribute("enabled")->getValueBool();
         } catch (myxmlpp::AttributeNotFoundException &e) {
             throw ExceptionLogger("Plugin: Plugin corrupted, no name attribute found");
         }
-        this->pluginManager = _game.getPluginManager();
-        this->assetManager = _game.getAssetManager();
         _factory = std::make_unique<ScriptFactory>();
         if (!_isEnabled)
             return;
