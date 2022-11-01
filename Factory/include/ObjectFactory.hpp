@@ -9,6 +9,7 @@
 #define PLUGIN_TEMPLATE_OBJECTFACTORY_HPP
 
 #include "ScriptingAPI/ISerializableObjectFactory.hpp"
+#include <unordered_map>
 
 namespace polymorph::engine
 {
