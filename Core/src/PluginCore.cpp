@@ -130,13 +130,6 @@ namespace polymorph::engine
         return _objectFactory->createS(type, node, data);
     }
 
-    ASerializableObject
-    PluginCore::createObject(std::string &type, Config::XmlComponent &data,
-                             std::shared_ptr<Config::XmlNode> &node)
-    {
-        return _objectFactory->createC(type, node, data);
-    }
-
     bool PluginCore::hasObject(std::string &type)
     {
         return _objectFactory->hasType(type);

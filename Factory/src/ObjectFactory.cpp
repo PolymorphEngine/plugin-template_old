@@ -7,14 +7,6 @@
 
 #include "../include/ObjectFactory.hpp"
 
-polymorph::engine::ASerializableObject
-polymorph::engine::ObjectFactory::createC(std::string type,
-                                          std::shared_ptr<myxmlpp::Node> &data,
-                                          polymorph::engine::Config::XmlComponent &manager)
-{
-    return _factoriesC[type](data, manager);
-}
-
 std::shared_ptr<polymorph::engine::ASerializableObject>
 polymorph::engine::ObjectFactory::createS(std::string type,
                                           std::shared_ptr<myxmlpp::Node> &data,
@@ -25,5 +17,5 @@ polymorph::engine::ObjectFactory::createS(std::string type,
 
 bool polymorph::engine::ObjectFactory::hasType(std::string &type)
 {
-    return _factoriesC.find(type) != _factoriesC.end() || _factoriesS.find(type) != _factoriesS.end();
+    return _factoriesS.find(type) != _factoriesS.end();
 }

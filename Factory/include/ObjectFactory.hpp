@@ -18,20 +18,12 @@ namespace polymorph::engine
         public:
             ~ObjectFactory() override = default;
 
-            ASerializableObject
-            createC(std::string type, std::shared_ptr<myxmlpp::Node> &data,
-                    Config::XmlComponent &manager) override;
-
             std::shared_ptr<ASerializableObject>
             createS(std::string type, std::shared_ptr<myxmlpp::Node> &data,
                     Config::XmlComponent &manager) override;
 
             bool hasType(std::string &type) override;
             
-        private:
-            std::unordered_map<std::string, FactoryLambdaC> _factoriesC = {
-                
-            };
             std::unordered_map<std::string, FactoryLambdaS> _factoriesS = {
                 
             };
