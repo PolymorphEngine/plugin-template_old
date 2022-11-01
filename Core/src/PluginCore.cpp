@@ -3,8 +3,10 @@
 #include <utility>
 #include "polymorph/Debug.hpp"
 #include "../../Factory/include/ScriptFactory.hpp"
+#include "../../Factory/include/ObjectFactory.hpp"
 #include "Plugins/AssetManager.hpp"
 #include "Plugins/PluginManager.hpp"
+#include "ScriptingAPI/ASerializableObject.hpp"
 
 namespace polymorph::engine 
 {
@@ -113,10 +115,31 @@ namespace polymorph::engine
             throw ExceptionLogger("Plugin: Plugin corrupted, no name attribute found");
         }
         _factory = std::make_unique<ScriptFactory>();
+        _objectFactory = std::make_unique<ObjectFactory>();
         if (!_isEnabled)
             return;
         _loadTemplates();
         _loadPrefabs();
+    }
+
+    std::shared_ptr<ASerializableObject>
+    PluginCore::createSharedObject(std::string &type,
+                                   Config::XmlComponent &data,
+                                   std::shared_ptr<Config::XmlNode> &node)
+    {
+        return _objectFactory->createS(type, node, data);
+    }
+
+    ASerializableObject
+    PluginCore::createObject(std::string &type, Config::XmlComponent &data,
+                             std::shared_ptr<Config::XmlNode> &node)
+    {
+        return _objectFactory->createC(type, node, data);
+    }
+
+    bool PluginCore::hasObject(std::string &type)
+    {
+        return _objectFactory->hasType(type);
     }
 }
 

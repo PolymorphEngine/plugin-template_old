@@ -10,6 +10,9 @@ namespace polymorph::engine
     class PluginCore : public IPlugin
     {
         public:
+
+
+        public:
             using XmlNode = myxmlpp::Node;
             PluginCore(XmlNode &data, Engine &game, std::string PluginsPath);
             ~PluginCore() = default;
@@ -33,6 +36,7 @@ namespace polymorph::engine
             std::vector<std::shared_ptr<Config::XmlEntity>> _prefabs;
             std::vector<Config::XmlComponent> _templates;
             std::unique_ptr<IScriptFactory> _factory;
+            std::unique_ptr<ISerializableObjectFactory> _objectFactory;
             Engine &_game;
             
         public:
@@ -98,6 +102,16 @@ namespace polymorph::engine
             void postUpdateInternalSystems(std::shared_ptr<Scene> &scene) final;
 
             void endScripts(std::shared_ptr<Scene> &scene) override;
+         
+            std::shared_ptr<ASerializableObject>
+            createSharedObject(std::string &type, Config::XmlComponent &data,
+                               std::shared_ptr<Config::XmlNode> &node) override;
+
+            ASerializableObject
+            createObject(std::string &type, Config::XmlComponent &data,
+                         std::shared_ptr<Config::XmlNode> &node) override;
+
+            bool hasObject(std::string &type) override;
             
         private:
             void _loadPrefabs();
