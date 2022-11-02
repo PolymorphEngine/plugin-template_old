@@ -125,14 +125,22 @@ namespace polymorph::engine
     std::shared_ptr<ASerializableObject>
     PluginCore::createSharedObject(std::string &type,
                                    Config::XmlComponent &data,
-                                   std::shared_ptr<Config::XmlNode> &node)
+                                   std::shared_ptr<Config::XmlNode> &node,
+                                   engine::PluginManager &Plugins)
     {
-        return _objectFactory->createS(type, node, data);
+        return _objectFactory->createS(type, node, data, Plugins);
     }
 
     bool PluginCore::hasObject(std::string &type)
     {
         return _objectFactory->hasType(type);
+    }
+
+    std::shared_ptr<ASerializableObject>
+    PluginCore::createEmptySharedObject(std::string &type,
+                                        PluginManager &Plugins)
+    {
+        return _objectFactory->createEmpty(type, Plugins);
     }
 }
 

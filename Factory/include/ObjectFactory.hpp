@@ -11,9 +11,17 @@
 #include "ScriptingAPI/ScriptingApi.hpp"
 #include <unordered_map>
 
-OBJECT_FACTORY_BEGIN() {
+OBJECT_FACTORY_BEGIN() 
+
+    OBJECT_FACTORY_MAP(){
     
-} OBJECT_FACTORY_END()
+    };
+    
+    OBJECT_FACTORY_EMPTY_MAP(){
+        
+    };
+
+OBJECT_FACTORY_END()
 
 
 #endif //PLUGIN_TEMPLATE_OBJECTFACTORY_HPP

@@ -105,7 +105,12 @@ namespace polymorph::engine
          
             std::shared_ptr<ASerializableObject>
             createSharedObject(std::string &type, Config::XmlComponent &data,
-                               std::shared_ptr<Config::XmlNode> &node) override;
+                               std::shared_ptr<Config::XmlNode> &node,
+                               engine::PluginManager &Plugins) override;
+
+            std::shared_ptr<ASerializableObject>
+            createEmptySharedObject(std::string &type,
+                                    PluginManager &Plugins) override;
 
             bool hasObject(std::string &type) override;
             
