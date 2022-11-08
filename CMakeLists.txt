@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 20)
 set(EXECUTABLE_OUTPUT_PATH ../)
 
 project(plugin-template)
@@ -48,7 +48,7 @@ set_target_properties(${PROJECT_NAME} PROPERTIES POSITION_INDEPENDENT_CODE ON)
 
 if(WIN32)
     # MSVC
-    target_compile_options(${PROJECT_NAME} PRIVATE /EHsc /W2 /c)
+    target_compile_options(${PROJECT_NAME} PRIVATE /EHsc /W2 /c /Zc:preprocessor /wd5105)
     # Set the DLLEXPORT variable to export symbols
     target_compile_definitions(${PROJECT_NAME} PRIVATE WIN_EXPORT)
 endif()
