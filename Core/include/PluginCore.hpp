@@ -15,7 +15,7 @@ namespace polymorph::engine
         public:
             using XmlNode = myxmlpp::Node;
             PluginCore(XmlNode &data, Engine &game, std::string PluginsPath);
-            ~PluginCore() = default;
+            ~PluginCore() override = default;
 
         private:
             PluginCore(const PluginCore &copy): _data(copy._data), _game(copy._game), _pluginsPath(copy._pluginsPath), assetManager(copy.assetManager), pluginManager(copy.pluginManager) {
