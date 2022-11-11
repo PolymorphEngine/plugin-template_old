@@ -5,7 +5,7 @@ if(NOT TARGET PolymorphEngine)
     FetchContent_Declare(
             PolymorphEngine
             GIT_REPOSITORY https://github.com/PolymorphEngine/engine.git
-            GIT_TAG feature/PluginManager
+            GIT_TAG master
     )
     FetchContent_MakeAvailable(PolymorphEngine)
 
